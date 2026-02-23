@@ -1,0 +1,30 @@
+# MedEcho – AI Radiology & Clinical Scribe
+# Core dependencies
+
+# ── Web UI ──────────────────────────────────────────────────────────────────
+streamlit>=1.35.0
+
+# ── ML / Models ─────────────────────────────────────────────────────────────
+torch>=2.2.0
+transformers>=4.42.0
+accelerate>=0.30.0
+pillow>=10.3.0
+sentencepiece>=0.2.0
+protobuf>=4.25.0
+
+# ── Google AI / HAI-DEF ──────────────────────────────────────────────────────
+google-generativeai>=0.7.0
+google-cloud-speech>=2.26.0
+
+# ── Audio ────────────────────────────────────────────────────────────────────
+sounddevice>=0.4.6
+openai-whisper>=20231117        # local ASR fallback
+webrtcvad>=2.0.10               # Voice Activity Detection
+
+# ── Security / Export ────────────────────────────────────────────────────────
+cryptography>=42.0.0
+qrcode[pil]>=7.4.2
+
+# ── Utilities ────────────────────────────────────────────────────────────────
+numpy>=1.26.0
+requests>=2.31.0
