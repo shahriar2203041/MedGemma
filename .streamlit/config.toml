@@ -1,0 +1,20 @@
+[server]
+headless = false
+enableCORS = false
+enableXsrfProtection = true
+maxUploadSize = 200
+runOnSave = false
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "dark"
+primaryColor = "#1ABC9C"
+backgroundColor = "#0D1B2A"
+secondaryBackgroundColor = "#152536"
+textColor = "#F0F4F8"
+font = "sans serif"
+
+[runner]
+fastReruns = true

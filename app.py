@@ -274,6 +274,10 @@ def _init_state() -> None:
         "recording": False,
         "model_loaded": False,
         "prior_report": "",
+        # API keys — pre-populated from environment, editable at runtime
+        "gemini_key": os.environ.get("GEMINI_API_KEY", ""),
+        "hf_token": os.environ.get("HF_TOKEN", ""),
+        "medasr_key": os.environ.get("GOOGLE_CLOUD_API_KEY", ""),
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -351,23 +355,32 @@ def render_sidebar() -> Dict:
 
         # ── API Keys ────────────────────────────────────────────────
         st.subheader("🔑 API Configuration")
-        gemini_key = st.text_input(
+        if not st.session_state.gemini_key and not st.session_state.hf_token:
+            st.info(
+                "💡 **First time?** Enter your API keys below to enable AI features. "
+                "Keys are held in memory for this session only — they are never written to disk.",
+                icon="🔑",
+            )
+        st.text_input(
             "Gemini API Key",
             type="password",
-            value=os.environ.get("GEMINI_API_KEY", ""),
-            help="Required for cloud inference. Get yours at aistudio.google.com",
+            key="gemini_key",
+            help="Required for cloud inference. Get yours at aistudio.google.com/app/apikey",
+            placeholder="AIza...",
         )
-        hf_token = st.text_input(
+        st.text_input(
             "HuggingFace Token",
             type="password",
-            value=os.environ.get("HF_TOKEN", ""),
-            help="Required to download MedGemma / MedSigLIP weights.",
+            key="hf_token",
+            help="Required to download MedGemma / MedSigLIP weights. Get yours at huggingface.co/settings/tokens",
+            placeholder="hf_...",
         )
-        medasr_key = st.text_input(
+        st.text_input(
             "MedASR / Google Cloud Key",
             type="password",
-            value=os.environ.get("GOOGLE_CLOUD_API_KEY", ""),
-            help="For MedASR medical transcription (optional – falls back to Whisper).",
+            key="medasr_key",
+            help="For MedASR medical transcription (optional – falls back to Whisper). Get yours at console.cloud.google.com/apis/credentials",
+            placeholder="AIza... (optional)",
         )
 
         st.divider()
@@ -428,9 +441,9 @@ def render_sidebar() -> Dict:
             st.rerun()
 
     return {
-        "gemini_key": gemini_key,
-        "hf_token": hf_token,
-        "medasr_key": medasr_key,
+        "gemini_key": st.session_state.gemini_key,
+        "hf_token": st.session_state.hf_token,
+        "medasr_key": st.session_state.medasr_key,
         "model_size": model_size,
         "llm_choice": llm_choice,
         "img_backend": img_backend,

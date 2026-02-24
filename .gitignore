@@ -15,8 +15,8 @@ build/
 venv/
 env/
 
-# Streamlit
-.streamlit/
+# Streamlit (ignore secrets, not config)
+.streamlit/secrets.toml
 
 # Offline data / audio
 offline_data/
